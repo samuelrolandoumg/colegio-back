@@ -10,7 +10,7 @@ const sequelize = new Sequelize(
     dialect: process.env.DB_DIALECT,
     port: process.env.DB_PORT,
     logging: false,
-    dialectOptions: process.env.DB_DIALECT === 'mssql' ? {
+    dialectOptions: process.env.DB_DIALECT === 'mysql' ? {
       options: {
         encrypt: false, // Cambiar a true si usas Azure o conexiones remotas
         trustServerCertificate: true, // Requerido para conexiones locales
