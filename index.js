@@ -13,12 +13,11 @@ const tareasRoutes = require('./routes/tareasRoutes');
 const profesorRoutes = require('./routes/profesorRoutes');
 const notasRoutes = require('./routes/notasRoutes');
 
-
 require('./Database/relations'); 
 const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 
 app.use(cors({

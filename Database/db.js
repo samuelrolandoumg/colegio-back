@@ -8,7 +8,7 @@ const sequelize = new Sequelize(
   { 
     host: process.env.DB_SERVER,
     dialect: process.env.DB_DIALECT,
-    port: process.env.DB_PORT,
+    port: process.env.DB_PORT || 3306, // Puerto (Railway lo define)
     logging: false,
     dialectOptions: process.env.DB_DIALECT === 'mysql' ? {
       options: {
