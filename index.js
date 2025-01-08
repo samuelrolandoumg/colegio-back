@@ -17,7 +17,9 @@ require('./Database/relations');
 const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT || 3000;
+//const port = process.env.PORT || 3000;
+
+const { PORT } = require("./Database/db.config"); // Ruta corregida para importar la configuración
 
 // Log de variables de entorno
 console.log('Variables de entorno:');
@@ -92,4 +94,8 @@ sequelize.sync()
   })
   .catch((err) => {
     console.error("Error al conectar y sincronizar la base de datos: ", err.message);
+  });
+
+  app.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}.`);
   });
