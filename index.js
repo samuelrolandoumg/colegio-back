@@ -64,11 +64,7 @@ app.use('/api/notas', notasRoutes);
 
 // Sincronización de modelos y arranque del servidor
 (async function startServer() {
-    try {
-        await sequelize.authenticate();
-        app.listen(port, () => {
-        });
-    } catch (error) {
-        console.error('No se pudo conectar a la base de datos:', error);
-    }
+    await sequelize.authenticate();
+    app.listen(port, () => {
+    });
 })();
