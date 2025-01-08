@@ -1,19 +1,20 @@
 const { Sequelize } = require('sequelize');
-require('dotenv').config();
+const dbConfig = require('./db.config'); // Ajusta la ruta según tu estructura
 
 const sequelize = new Sequelize(
-  process.env.DB_DATABASE,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  { 
-    DB_HOST: process.env.DB_HOST,
-    dialect: "mysql",
-    DB_PORT: process.env.DB_PORT || 3306, // Puerto (Railway lo define)
-    logging: false,
-    dialectOptions: 'mysql' ? {
-      options: {
-        encrypt: false, // Cambiar a true si usas Azure o conexiones remotas
-        trustServerCertificate: true, // Requerido para conexiones locales
+  dbConfig.database, // Nombre de la base de datos
+  dbConfig.username, // Usuario
+  dbConfig.password, // Contraseña
+  {
+    host: dbConfig.host, // Servidor
+    dialect: dbConfig.dialect, // Dialecto
+    port: dbConfig.port, // Puerto
+    pool: dbConfig.pool, // Pool de conexiones
+    logging: false, // Desactiva los logs de consultas SQL
+    dialectOptions: dbConfig.dialect === 'mysql' ? {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
       },
     } : {},
   }
