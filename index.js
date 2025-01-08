@@ -62,20 +62,11 @@ app.use('/api/tareas', tareasRoutes);
 app.use('/api/profesor', profesorRoutes);
 app.use('/api/notas', notasRoutes);
 
-
 // Sincronización de modelos y arranque del servidor
 (async function startServer() {
     try {
         await sequelize.authenticate();
-        console.log('Conexión exitosa con la base de datos.');
-
-        // Sincroniza tablas (usa `force: false` para evitar sobrescribir datos)
-        await sequelize.sync({ force: false }); // Elimina y vuelve a crear todas las tablas
-
-        console.log('Tablas sincronizadas.');
-
         app.listen(port, () => {
-            console.log(`Servidor corriendo en http://localhost:${port}`);
         });
     } catch (error) {
         console.error('No se pudo conectar a la base de datos:', error);
