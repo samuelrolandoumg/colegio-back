@@ -71,17 +71,25 @@ app.use('/api/profesor', profesorRoutes);
 app.use('/api/notas', notasRoutes);
 
 // Sincronización de modelos y arranque del servidor
-(async function startServer() {
-    try {
-        console.log('Intentando conectar a la base de datos...');
-        await sequelize.authenticate();
-        console.log('Conexión exitosa a la base de datos.');
+// (async function startServer() {
+//     try {
+//         console.log('Intentando conectar a la base de datos...');
+//         await sequelize.authenticate();
+//         console.log('Conexión exitosa a la base de datos.');
         
-        app.listen(port, () => {
-            console.log(`Servidor corriendo en http://localhost:${port}`);
-        });
-    } catch (error) {
-        console.error('No se pudo conectar a la base de datos: ', error.message);
-        console.error('Stack trace:', error.stack);
-    }
-})();
+//         app.listen(port, () => {
+//             console.log(`Servidor corriendo en http://localhost:${port}`);
+//         });
+//     } catch (error) {
+//         console.error('No se pudo conectar a la base de datos: ', error.message);
+//         console.error('Stack trace:', error.stack);
+//     }
+// })();
+
+sequelize.sync()
+  .then(() => {
+    console.log("Conexión exitosa y base de datos sincronizada.");
+  })
+  .catch((err) => {
+    console.error("Error al conectar y sincronizar la base de datos: ", err.message);
+  });
