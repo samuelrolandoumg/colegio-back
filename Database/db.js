@@ -1,22 +1,19 @@
 const { Sequelize } = require('sequelize');
-const dbConfig = require('./db.config'); // Ajusta la ruta según tu estructura
 
 const sequelize = new Sequelize(
-  dbConfig.database, // Nombre de la base de datos
-  dbConfig.username, // Usuario
-  dbConfig.password, // Contraseña
+  process.env.DB_DATABASE, // Base de datos
+  process.env.DB_USER,     // Usuario
+  process.env.DB_PASSWORD, // Contraseña
   {
-    host: dbConfig.host, // Servidor
-    dialect: dbConfig.dialect, // Dialecto
-    port: dbConfig.port, // Puerto
-    pool: dbConfig.pool, // Pool de conexiones
-    logging: false, // Desactiva los logs de consultas SQL
-    dialectOptions: dbConfig.dialect === 'mysql' ? {
+    host: process.env.DB_SERVER, // Servidor
+    port: process.env.DB_PORT,   // Puerto
+    dialect: process.env.DB_DIALECT || 'mysql', // Dialecto
+    dialectOptions: {
       ssl: {
-        require: true,
-        rejectUnauthorized: false,
+        require: true, // Opcional: Si Railway requiere SSL
+        rejectUnauthorized: false, // Ignora certificados no autorizados
       },
-    } : {},
+    },
   }
 );
 
