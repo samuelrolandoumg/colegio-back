@@ -7,7 +7,7 @@ const sequelize = new Sequelize(
   {
     host: process.env.DB_SERVER, // Servidor
     port: process.env.DB_PORT,   // Puerto
-    dialect: process.env.DB_DIALECT || 'mysql', // Dialecto
+    dialect: "mysql", // Dialecto
     dialectOptions: {
       ssl: {
         require: true, // Opcional: Si Railway requiere SSL
