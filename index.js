@@ -17,17 +17,7 @@ require('./Database/relations');
 const cors = require('cors');
 
 const app = express();
-//const port = process.env.PORT || 3000;
-
-const { PORT } = require("./Database/db.config"); // Ruta corregida para importar la configuración
-
-// Log de variables de entorno
-console.log('Variables de entorno:');
-console.log('DB_HOST:', process.env.DB_HOST);
-console.log('DB_USER:', process.env.DB_USER);
-console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
-console.log('DB_DATABASE:', process.env.DB_DATABASE);
-console.log('DB_PORT:', process.env.DB_PORT);
+const port = process.env.PORT || 3000;
 
 // Configurar CORS
 app.use(cors({
@@ -39,7 +29,7 @@ app.use(cors({
 // Middleware global para CORS y configuración de encabezados
 app.use((req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200'); // Permitir tu frontend
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200', 'https://colegio-front-production.up.railway.app', 'http://localhost:8080'); // Permitir tu frontend
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     if (req.method === 'OPTIONS') {
@@ -72,30 +62,18 @@ app.use('/api/tareas', tareasRoutes);
 app.use('/api/profesor', profesorRoutes);
 app.use('/api/notas', notasRoutes);
 
-// Sincronización de modelos y arranque del servidor
-// (async function startServer() {
-//     try {
-//         console.log('Intentando conectar a la base de datos...');
-//         await sequelize.authenticate();
-//         console.log('Conexión exitosa a la base de datos.');
+//Sincronización de modelos y arranque del servidor
+(async function startServer() {
+    try {
+        console.log('Intentando conectar a la base de datos...');
+        await sequelize.authenticate();
+        console.log('Conexión exitosa a la base de datos.');
         
-//         app.listen(port, () => {
-//             console.log(`Servidor corriendo en http://localhost:${port}`);
-//         });
-//     } catch (error) {
-//         console.error('No se pudo conectar a la base de datos: ', error.message);
-//         console.error('Stack trace:', error.stack);
-//     }
-// })();
-
-sequelize.sync()
-  .then(() => {
-    console.log("Conexión exitosa y base de datos sincronizada.");
-  })
-  .catch((err) => {
-    console.error("Error al conectar y sincronizar la base de datos: ", err.message);
-  });
-
-  app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}.`);
-  });
+        app.listen(port, () => {
+            console.log(`Servidor corriendo en http://localhost:${port}`);
+        });
+    } catch (error) {
+        console.error('No se pudo conectar a la base de datos: ', error.message);
+        console.error('Stack trace:', error.stack);
+    }
+})();
