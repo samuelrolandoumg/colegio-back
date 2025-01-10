@@ -30,7 +30,7 @@ console.log('DB_PORT:', process.env.DB_PORT);
 
 // Configurar CORS
 app.use(cors({
-    origin: 'http://localhost:4200', // Permitir la URL del front-end
+    origin: ['http://localhost:4200', 'http://localhost:8080', 'https://colegio-front-production.up.railway.app'], // Agrega todos los dominios permitidos
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Métodos HTTP permitidos
     allowedHeaders: ['Content-Type', 'Authorization'], // Headers permitidos
 }));
